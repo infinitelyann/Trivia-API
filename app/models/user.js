@@ -41,4 +41,7 @@ const userSchema = new mongoose.Schema(
 	}
 )
 
+//separating user/owner is not necessary- conditional is post request?
+//user should own/edit games w/ questions pulled from API-user form similar to API
+
 module.exports = mongoose.model('User', userSchema)
