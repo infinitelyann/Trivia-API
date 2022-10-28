@@ -1,5 +1,15 @@
 # Trivia-API
 
+### Team Roles:
+
+### Git Manager: Stephanie Parker
+
+### Front-End: Angelica De la Cruz
+
+### Back-End: Zack Yaffee
+
+### Full-Stack: Harrison Simon, Stephanie Parker
+
 ## Technologies Used
 
 - <a href="https://opentdb.com/api_config.php">API</a>
