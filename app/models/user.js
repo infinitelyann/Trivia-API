@@ -41,4 +41,6 @@ const userSchema = new mongoose.Schema(
 	}
 )
 
+// TODO -> Virtuals that use playerStats to return leaderboard relevant data
+
 module.exports = mongoose.model('User', userSchema)
