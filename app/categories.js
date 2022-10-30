@@ -24,3 +24,5 @@ const categories = [
     'Entertainment: Japanese Anime & Manga',
     'Entertainment: Cartoon & Animations'    
 ]
+
+module.exports = ('categories', categories)

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const categories = require('../categories')
 
 const questionSchema = new mongoose.Schema(
     {
@@ -14,40 +15,24 @@ const questionSchema = new mongoose.Schema(
             type: Array,
             required: true
         },
+        elapsedTime: {
+            type: Number,
+            required: true
+        },
         category: {
             type: String,
             required: true,
-            enum: [
-                'General Knowledge',
-                'Entertainment: Books',
-                'Entertainment: Film',
-                'Entertainment: Music',
-                'Entertainment: Musicals & Theatres',
-                'Entertainment: Television',
-                'Entertainment: Video Games',
-                'Entertainment: Board Games',
-                'Science & Nature',
-                'Science: Computers',
-                'Science: Mathematics',
-                'Science: Gadgets',
-                'Mythology',
-                'Sports',
-                'Geography',
-                'History',
-                'Politics',
-                'Art',
-                'Celebrities',
-                'Animals',
-                'Vehicles',
-                'Entertainment: Comics',
-                'Entertainment: Japanese Anime & Manga',
-                'Entertainment: Cartoon & Animations'
-            ]
+            enum: categories
         },
         type: {
             type: String,
             required: true,
             enum: ['Multiple Choice', 'True / False']
+        },
+        difficulty: {
+            type: String,
+            required: true,
+            enum: ['Easy', 'Medium', 'Hard']
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
@@ -60,3 +45,4 @@ module.exports = mongoose.model('Question', questionSchema)
 
 // leaderboard might be subdocument
 // virtuals could aggregate scores for leaderboard
+// timer will be virtual using new Date()
