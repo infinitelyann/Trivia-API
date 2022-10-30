@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const playerStatsSchema = require('./playerStats')
 
 const userSchema = new mongoose.Schema(
 	{
@@ -11,10 +12,7 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-        playerStats: {
-            type: Object,
-            required: true
-        },
+        playerStats: [playerStatsSchema],
         flaggedQuestions: {
             type: Array,
             required: true
@@ -44,8 +42,8 @@ const userSchema = new mongoose.Schema(
 // TODO -> Virtuals that use playerStats to return leaderboard relevant data
 //separating user/owner is not necessary- conditional is post request?
 //user should own/edit games w/ questions pulled from API-user form similar to API
-=======
 // TODO -> Virtuals that use playerStats to return leaderboard relevant data
->>>>>>> zach-models
 
 module.exports = mongoose.model('User', userSchema)
+
+//what does playerStats look like?
