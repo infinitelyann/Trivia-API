@@ -153,6 +153,17 @@ router.patch('/:userId', requireToken, (req, res, next) => {
         .catch(next)
 })
 
+// SHOW leaderboard
+// GET
+// router.get('/leaderboard', (req, res, next) => {
+// 	User.find()
+// 		.then(users => {
+// 			users.forEach(user => {
+// 				return [user.username, user.playerStats.total]
+// 			})
+// 		})
+// })
+
 router.delete('/sign-out', requireToken, (req, res, next) => {
 	// create a new random token for the user, invalidating the current one
 	req.user.token = crypto.randomBytes(16)
