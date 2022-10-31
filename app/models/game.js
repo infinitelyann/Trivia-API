@@ -5,7 +5,7 @@ const gameSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            reuired: true
+            required: true
         },
         questions: [questionSchema],
         owner: {

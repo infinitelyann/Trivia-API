@@ -58,7 +58,7 @@ router.get('/games/:id', requireToken, (req, res, next)=> {
 router.post('/games', requireToken, (req, res, next) => {
     // setting game owner to current user
     // req.body.games.owner = req.user.id
-    console.log(req.body)
+    console.log("the game",req.body)
     Game.create(req.body.game)
         .then((game) => {
             res.status(201).json({ game: game})
