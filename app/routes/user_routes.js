@@ -135,7 +135,7 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 
 // CHANGE stats
 // PATCH
-router.patch('/:userId', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/:userId', requireToken, (req, res, next) => {
     const { userId } = req.params
 
     User.findById(userId)
