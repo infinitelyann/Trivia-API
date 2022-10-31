@@ -8,6 +8,7 @@ const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const gameRoutes = require('./app/routes/game_routes')
 const questionRoutes = require('./app/routes/question_routes')
+const homeRoutes = require('./app/routes/player_landing')
 
 // require middleware
 const errorHandler = require('./lib/error_handler')
@@ -71,6 +72,7 @@ app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(gameRoutes)
 app.use(questionRoutes)
+app.use(homeRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
