@@ -133,6 +133,26 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 		.catch(next)
 })
 
+// CHANGE stats
+// PATCH
+router.patch('/:userId', requireToken, (req, res, next) => {
+    const { userId } = req.params
+
+    User.findById(userId)
+        .then(handle404)
+        .then(user => {
+            const stats = user.playerStats
+
+            requireOwnership(req, user)
+
+            stats.set(req.body.stats)
+
+            return user.save()
+        })
+        .then(() => res.sendStatus(204))
+        .catch(next)
+})
+
 router.delete('/sign-out', requireToken, (req, res, next) => {
 	// create a new random token for the user, invalidating the current one
 	req.user.token = crypto.randomBytes(16)
