@@ -7,6 +7,7 @@ const passport = require('passport')
 ////////////////////////////////
 /// create and pull in game model
 /////////////////////////////////
+const Game = require('../models/game')
 
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
@@ -48,6 +49,7 @@ router.get('/games/:id', requireToken, (req, res, next)=> {
     // perhaps start a game session on user being ready?
     Game.findById(req.params.id)
         .then(handle404)
+        .catch(next)
 })
 
 ///// CREATE
@@ -55,12 +57,13 @@ router.get('/games/:id', requireToken, (req, res, next)=> {
 // /games
 router.post('/games', requireToken, (req, res, next) => {
     // setting game owner to current user
-    req.body.games.owner = req.user.id
-
-    Game.create(req.body.example)
+    // req.body.games.owner = req.user.id
+    console.log(req.body)
+    Game.create(req.body.game)
         .then((game) => {
-            res.status(201).json({ game: game.toObject()})
+            res.status(201).json({ game: game})
         })
+        .catch(next)
 })
 
 //UPDATE

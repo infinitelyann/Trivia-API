@@ -15,10 +15,10 @@ const questionSchema = new mongoose.Schema(
             type: Array,
             required: true
         },
-        elapsedTime: {
-            type: Number,
-            required: true
-        },
+        // elapsedTime: {
+        //     type: Number,
+        //     required: true
+        // },
         category: {
             type: String,
             required: true,
@@ -41,7 +41,7 @@ const questionSchema = new mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('Question', questionSchema)
+module.exports =  questionSchema
 
 // leaderboard might be subdocument
 // virtuals could aggregate scores for leaderboard
