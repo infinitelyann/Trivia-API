@@ -24,7 +24,6 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // instantiate a router (mini app that only handles routes)
 const router = express.Router()
 
-const Question = require('../models/question')
 const Game = require('../models/game')
 
 //////////////////////
