@@ -34,10 +34,10 @@ const questionSchema = new mongoose.Schema(
             required: true,
             enum: ['Easy', 'Medium', 'Hard']
         },
-        owner: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }
+        // owner: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: 'User'
+        // }
     }
 )
 

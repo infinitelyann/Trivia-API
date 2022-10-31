@@ -29,7 +29,7 @@ const Game = require('../models/game')
 
 //////////////////////
 // CREATE
-//// getting one question from DB
+//// POST
 router.post('/questions/:gameId', requireToken, (req, res, next) => {
     const question = req.body.question
     const gameId = req.params.gameId
@@ -46,13 +46,41 @@ router.post('/questions/:gameId', requireToken, (req, res, next) => {
 
 ////////////////////
 // UPDATE
-/// creating a question
-router.patch('/questions', requireToken, (req, res, next) => {
-    Question.create(req.body)
-        .then((question) => {
-            res.status(201).json({ question: question})
+/// PATCH updating a question
+/// /games/<game_id>/<question_id>
+router.patch('/questions/:gameId/:questionId', requireToken, (req, res, next) => {
+    const { gameId, questionId } = req.params
+ 
+    Game.findById(gameId)
+        .then((game) => {
+            console.log(game.questions)
+            const theQuestion = game.questions.id(questionId)
+            console.log("the game",game)
+            console.log("the req", req)
+            requireOwnership(req, game)
+            theQuestion.set(req.body.question)
+            return game.save()
         })
+        .then(game => res.sendStatus(204))
         .catch(next)
 })
+
+
+/// DELETE / DESTROY
+// /games/<game_id>/<question_id>
+router.delete('/questions/:gameId/:questionId', requireToken, (req, res, next) => {
+    const { gameId, questionId } = req.params
+    Game.findById(gameId)
+        .then(handle404)
+        .then(game => {
+            const theQuestion = game.questions.id(questionId)
+            requireOwnership(req, game)
+            theQuestion.remove()
+            return game.save()
+        })
+        .then(game => res.sendStatus(204))
+        .catch(next)
+})
+
 
 module.exports = router

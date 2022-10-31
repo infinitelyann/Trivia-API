@@ -34,6 +34,7 @@ const router = express.Router()
 // /games
 router.get('/games', requireToken, (req, res, next) => {
     Game.find()
+        .populate('owner')
         .then((games) => {
             return games.map((game) => game.toObject())
         })
@@ -48,6 +49,7 @@ router.get('/games/:id', requireToken, (req, res, next)=> {
     // find an individual game 
     // perhaps start a game session on user being ready?
     Game.findById(req.params.id)
+        .populate('owner')
         .then(handle404)
         .catch(next)
 })
