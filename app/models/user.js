@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema(
 	}
 )
 
+userSchema.virtual('username').get(function() {
+	return this.email.slice(0, this.email.indexOf('@'))
+})
+
 // TODO -> Virtuals that use playerStats to return leaderboard relevant data
 //separating user/owner is not necessary- conditional is post request?
 //user should own/edit games w/ questions pulled from API-user form similar to API
