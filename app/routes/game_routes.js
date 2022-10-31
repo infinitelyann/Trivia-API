@@ -50,6 +50,9 @@ router.get('/games/:id', requireToken, (req, res, next)=> {
     // perhaps start a game session on user being ready?
     Game.findById(req.params.id)
         .populate('owner')
+        .then(game => {
+            res.status(200).json({game: game})
+        })
         .then(handle404)
         .catch(next)
 })
@@ -58,6 +61,7 @@ router.get('/games/:id', requireToken, (req, res, next)=> {
 // POST
 // /games
 router.post('/games', requireToken, (req, res, next) => {
+    req.body.game.owner = req.user.id
     // setting game owner to current user
     // req.body.games.owner = req.user.id
     console.log("the game",req.body)
