@@ -5,6 +5,9 @@ const crypto = require('crypto')
 const passport = require('passport')
 // bcrypt docs: https://github.com/kelektiv/node.bcrypt.js
 const bcrypt = require('bcrypt')
+// categories
+const categories = require('../categories')
+const testCategories = require('../categories')
 
 // see above for explanation of "salting", 10 rounds is recommended
 const bcryptSaltRounds = 10
@@ -28,10 +31,12 @@ const router = express.Router()
 // SIGN UP
 // POST /sign-up
 router.post('/sign-up', (req, res, next) => {
+	console.log(req.body.credentials)
 	// start a promise chain, so that any errors will pass to `handle`
 	Promise.resolve(req.body.credentials)
 		// reject any requests where `credentials.password` is not present, or where
 		// the password is an empty string
+
 		.then((credentials) => {
 			if (
 				!credentials ||
@@ -145,7 +150,7 @@ router.patch('/:userId', requireToken, (req, res, next) => {
 
             requireOwnership(req, user)
 
-            stats.set(req.body.stats)
+            stats.set(req.body.playerStats)
 
             return user.save()
         })
@@ -155,14 +160,15 @@ router.patch('/:userId', requireToken, (req, res, next) => {
 
 // SHOW leaderboard
 // GET
-// router.get('/leaderboard', (req, res, next) => {
-// 	User.find()
-// 		.then(users => {
-// 			users.forEach(user => {
-// 				return [user.username, user.playerStats.total]
-// 			})
-// 		})
-// })
+router.get('/leaderboard', (req, res, next) => {
+	User.find()
+		.then(users => {
+			let leaderboard = {}
+			users.forEach(user => {
+				leaderboard[user.username] = user.playerStats.total
+			})
+		})
+})
 
 router.delete('/sign-out', requireToken, (req, res, next) => {
 	// create a new random token for the user, invalidating the current one
