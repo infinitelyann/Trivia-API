@@ -19,6 +19,7 @@ const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
 const User = require('../models/user')
+const user = require('../models/user')
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -142,16 +143,12 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 // PATCH
 router.patch('/:userId', requireToken, (req, res, next) => {
     const { userId } = req.params
+	console.log("this is req.body: ", req.body)
 
     User.findById(userId)
-        .then(handle404)
         .then(user => {
-            const stats = user.playerStats
 
-            requireOwnership(req, user)
-
-            stats.set(req.body.playerStats)
-
+            user.playerStats.set(req.body.playerStats)
             return user.save()
         })
         .then(() => res.sendStatus(204))
