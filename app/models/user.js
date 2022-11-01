@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-        playerStats: [playerStatsSchema],
+        playerStats: playerStatsSchema,
         flaggedQuestions: {
             type: Array,
             required: true
@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
 		timestamps: true,
 		// this is a validator, it removes the password field from the object when returning a user
 		toObject: {
+			virtuals: true,
 			// remove `hashedPassword` field when we call `.toObject`
 			transform: (_doc, user) => {
 				delete user.hashedPassword
@@ -30,6 +31,7 @@ const userSchema = new mongoose.Schema(
 			},
 		},
 		toJSON: {
+			virtuals: true,
 			// remove `hashedPassword` field when we call `.toObject`
 			transform: (_doc, user) => {
 				delete user.hashedPassword
