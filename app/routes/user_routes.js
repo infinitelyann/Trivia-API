@@ -161,17 +161,19 @@ router.patch('/:userId', requireToken, (req, res, next) => {
 // SHOW leaderboard
 // GET
 router.get('/leaderboard', (req, res, next) => {
+	console.log("leaderboard route running")
 	User.find()
 		.then(users => {
 			let leaderboard = {}
 			users.forEach(user => {
-				console.log("this is the user: ", user)
-				console.log('this is the username: ', user.username)
-				leaderboard[user.username] = user.playerStats.scoreTotal
+				leaderboard[user.username] = user.scoreTotal
 			})
 			console.log('this is the leaderboard: ', leaderboard)
+			return leaderboard
 		})
-		.then(() => res.sendStatus(204))
+		.then(leaderboard => {
+			res.status(200).json({ leaderboard: leaderboard })
+		})
         .catch(next)
 })
 
