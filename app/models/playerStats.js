@@ -1,141 +1,171 @@
 const mongoose = require('mongoose')
-const categories = require('../categories')
+// const categoryKeys = require('../categories')
 
-const playerStatsSchema = new mongoose.Schema(
+
+const playerStatsSchema = new mongoose.Schema (
     {
-        'General Knowledge': {
-            type: Number,
-            required: true,
-            default: 0
+        category: {
+            type: String,
+            required: true
         },
-        'Entertainment: Books': {
+        score: {
             type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Film': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Music': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Musicals & Theatres': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Television': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Video Games': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Board Games': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Science & Nature': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Science: Mathematics': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Science: Computers': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Science: Gadgets': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Mythology': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Sports': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Geography': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'History': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Politics': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Art': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Celebrities': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Animals': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Vehicles': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Comics': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Japanese Anime & Manga': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        'Entertainment: Cartoon & Animations': {
-            type: Number,
-            required: true,
-            default: 0
-        },
-        owner: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            required: true
         }
     }
 )
 
-playerStatsSchema.virtual('totalScore').get(function() {
-    let total = 0
-    categories.forEach(field => {
-        total += this[field]
-    })
-    return total
-})
+// const playerStatsSchema = new mongoose.Schema(
+//     {
+//         genKnowledge: {
+//             // General Knowledge
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entBooks: {
+//             // Entertainment: Books
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entFilm: {
+//             // Entertainment: Film
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entMusic: {
+//             // Entertainment: Music
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entMusicalTheatre: {
+//             // Entertainment: Musicals & Theatres
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entTV: {
+//             // Entertainment: Television
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entVidGames: {
+//             // Entertainment: Video Games
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entBoardGames: {
+//             // Entertainment: Board Games
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         sciNature: {
+//             // Science & Nature
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         sciMath: {
+//             // Science: Mathematics
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         sciComputers: {
+//             // Science: Computers
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         sciGadgets: {
+//             // Science: Gadgets
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         mythology: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         sports: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         geography: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         history: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         politics: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         art: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         celebrities: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         animals: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         vehicles: {
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entComics: {
+//             // Entertainment: Comics
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entJapan: {
+//             // Entertainment: Japanese Anime & Manga
+//             type: Number,
+//             required: true,
+//             default: 0
+//         },
+//         entToons: {
+//             // Entertainment: Cartoon & Animations
+//             type: Number,
+//             required: true,
+//             default: 0
+//         }
+//     },
+//     {
+//         timestamps: true,
+//         toObject: { virtuals: true },
+//         toJSON: { virtuals: true }
+//     }
+// )
+
+// playerStatsSchema.virtual('totalScore').get(function () {
+//     let total = 0
+//     categoryKeys.forEach(key => {
+//         total += this[key]
+//     })
+//     return total
+// })
 
 module.exports = playerStatsSchema

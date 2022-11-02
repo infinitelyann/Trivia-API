@@ -16,6 +16,7 @@ const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
 const User = require('../models/user')
+const user = require('../models/user')
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -28,10 +29,12 @@ const router = express.Router()
 // SIGN UP
 // POST /sign-up
 router.post('/sign-up', (req, res, next) => {
+	console.log(req.body.credentials)
 	// start a promise chain, so that any errors will pass to `handle`
 	Promise.resolve(req.body.credentials)
 		// reject any requests where `credentials.password` is not present, or where
 		// the password is an empty string
+
 		.then((credentials) => {
 			if (
 				!credentials ||
@@ -58,6 +61,9 @@ router.post('/sign-up', (req, res, next) => {
 		// pass any errors along to the error handler
 		.catch(next)
 })
+
+
+
 
 // SIGN IN
 // POST /sign-in
@@ -137,19 +143,41 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 // PATCH
 router.patch('/:userId', requireToken, (req, res, next) => {
     const { userId } = req.params
+	console.log("this is req.body: ", req.body)
 
     User.findById(userId)
-        .then(handle404)
         .then(user => {
-            const stats = user.playerStats
-
-            requireOwnership(req, user)
-
-            stats.set(req.body.stats)
-
+			
+			console.log("this is playerStats before: ", user.playerStats)
+            user.playerStats.push(req.body)
+			console.log("this is playerStats after: ", user.playerStats)
+			console.log("this is user's total score: ", user.scoreTotal)
             return user.save()
         })
         .then(() => res.sendStatus(204))
+        .catch(next)
+})
+
+// SHOW leaderboard
+// GET
+router.get('/leaderboard', (req, res, next) => {
+	console.log("leaderboard route running")
+	User.find()
+		.then(users => {
+			let leaderboard = []
+			users.forEach(user => {
+				let rankObj = {username: user.username, score: user.scoreTotal}
+				leaderboard.push(rankObj)
+			})
+			leaderboard.sort((a, b) => {
+				return b.score - a.score
+			})
+			console.log('this is the leaderboard: ', leaderboard)
+			return leaderboard
+		})
+		.then(leaderboard => {
+			res.status(200).json({ leaderboard: leaderboard })
+		})
         .catch(next)
 })
 
