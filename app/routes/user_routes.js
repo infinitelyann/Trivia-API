@@ -164,9 +164,13 @@ router.get('/leaderboard', (req, res, next) => {
 	console.log("leaderboard route running")
 	User.find()
 		.then(users => {
-			let leaderboard = {}
+			let leaderboard = []
 			users.forEach(user => {
-				leaderboard[user.username] = user.scoreTotal
+				let rankObj = {username: user.username, score: user.scoreTotal}
+				leaderboard.push(rankObj)
+			})
+			leaderboard.sort((a, b) => {
+				return b.score - a.score
 			})
 			console.log('this is the leaderboard: ', leaderboard)
 			return leaderboard
