@@ -25,7 +25,7 @@ const categories = [
     'Entertainment: Cartoon & Animations'
 ]
 
-let testCategories = {
+let varCategories = {
     'General Knowledge': 0,
     'Entertainment: Books': 0,
     'Entertainment: Film': 0,
@@ -50,8 +50,7 @@ let testCategories = {
     'Entertainment: Comics': 0,
     'Entertainment: Japanese Anime & Manga': 0,
     'Entertainment: Cartoon & Animations': 0
-
 }
 
 module.exports = ('categories', categories)
-module.exports = ('testCategories', testCategories)
+module.exports = ('varCategories', varCategories)

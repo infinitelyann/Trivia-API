@@ -5,9 +5,6 @@ const crypto = require('crypto')
 const passport = require('passport')
 // bcrypt docs: https://github.com/kelektiv/node.bcrypt.js
 const bcrypt = require('bcrypt')
-// categories
-const categories = require('../categories')
-const testCategories = require('../categories')
 
 // see above for explanation of "salting", 10 rounds is recommended
 const bcryptSaltRounds = 10
@@ -64,6 +61,9 @@ router.post('/sign-up', (req, res, next) => {
 		// pass any errors along to the error handler
 		.catch(next)
 })
+
+
+
 
 // SIGN IN
 // POST /sign-in
@@ -147,8 +147,11 @@ router.patch('/:userId', requireToken, (req, res, next) => {
 
     User.findById(userId)
         .then(user => {
-
-            user.playerStats.set(req.body.playerStats)
+			
+			console.log("this is playerStats before: ", user.playerStats)
+            user.playerStats.push(req.body)
+			console.log("this is playerStats after: ", user.playerStats)
+			console.log("this is user's total score: ", user.scoreTotal)
             return user.save()
         })
         .then(() => res.sendStatus(204))
@@ -162,9 +165,14 @@ router.get('/leaderboard', (req, res, next) => {
 		.then(users => {
 			let leaderboard = {}
 			users.forEach(user => {
-				leaderboard[user.username] = user.playerStats.total
+				console.log("this is the user: ", user)
+				console.log('this is the username: ', user.username)
+				leaderboard[user.username] = user.playerStats.scoreTotal
 			})
+			console.log('this is the leaderboard: ', leaderboard)
 		})
+		.then(() => res.sendStatus(204))
+        .catch(next)
 })
 
 router.delete('/sign-out', requireToken, (req, res, next) => {
