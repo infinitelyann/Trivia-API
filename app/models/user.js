@@ -10,9 +10,9 @@ const userSchema = new mongoose.Schema(
 		},
 		hashedPassword: {
 			type: String,
-			required: true,
+			required: true
 		},
-        playerStats: playerStatsSchema,
+        playerStats: [playerStatsSchema],
         flaggedQuestions: {
             type: Array,
             required: true
@@ -43,6 +43,29 @@ const userSchema = new mongoose.Schema(
 
 userSchema.virtual('username').get(function() {
 	return this.email.slice(0, this.email.indexOf('@'))
+})
+
+// example of playerStats
+// [
+// 	{
+// 		category: 'foo',
+// 		score: 5
+// 	},
+// 	{
+// 		category: 'bah',
+// 		score: 3
+// 	}
+// ]
+
+userSchema.virtual('scoreTotal').get(function() {
+	if (this.playerStats.length !== 0) {
+		return this.playerStats.reduce((total, field) => {
+			return total + field['score']
+		}, 0)
+	}
+	else {
+		return 0
+	}
 })
 
 // TODO -> Virtuals that use playerStats to return leaderboard relevant data
