@@ -32,7 +32,7 @@ const router = express.Router()
 
 //////////// Index route for all user created games
 // /games
-router.get('/games', requireToken, (req, res, next) => {
+router.get('/games',  (req, res, next) => {
     Game.find()
         .populate('owner')
         .then((games) => {
@@ -45,7 +45,7 @@ router.get('/games', requireToken, (req, res, next) => {
 
 ////// SHOW route for a specific user created game
 // /games/:id
-router.get('/games/:id', requireToken, (req, res, next)=> {
+router.get('/games/:id',  (req, res, next)=> {
     // find an individual game 
     // perhaps start a game session on user being ready?
     Game.findById(req.params.id)
