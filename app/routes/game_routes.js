@@ -34,6 +34,7 @@ const router = express.Router()
 // /games
 router.get('/games',  (req, res, next) => {
     Game.find()
+        
         .populate('owner')
         .then((games) => {
             return games.map((game) => game.toObject())
