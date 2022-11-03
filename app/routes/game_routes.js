@@ -32,8 +32,9 @@ const router = express.Router()
 
 //////////// Index route for all user created games
 // /games
-router.get('/games', requireToken, (req, res, next) => {
+router.get('/games',  (req, res, next) => {
     Game.find()
+        
         .populate('owner')
         .then((games) => {
             return games.map((game) => game.toObject())

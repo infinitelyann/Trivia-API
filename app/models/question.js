@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const categories = require('../categories')
+const categories = require('./categories')
 
 const questionSchema = new mongoose.Schema(
     {
