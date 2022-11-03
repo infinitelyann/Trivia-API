@@ -95,6 +95,7 @@ router.delete('/games/:id', requireToken, (req, res, next) => {
     Game.findById(req.params.id)
         .then(handle404)
         .then((game) => {
+            
             requireOwnership(req, game)
             game.deleteOne()
         })
