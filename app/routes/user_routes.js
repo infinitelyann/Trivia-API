@@ -142,20 +142,22 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 // CHANGE stats
 // PATCH
 // adds quiz result object with category and score keyvaluepairs to playerStats array
+// and returns the user's new category score
 router.patch('/:userId', requireToken, (req, res, next) => {
     const { userId } = req.params
     User.findById(userId)
         .then(user => {
-			
             user.playerStats.push(req.body)
             return user.save()
         })
-        .then(() => res.sendStatus(204))
+        .then(user => {
+			res.status(200).json(user.categoryScore(req.body.category))
+		})
         .catch(next)
 })
 
 // SHOW leaderboard
-// GET
+// POST
 // returns ordered array of objects with username and score keyvaluepairs, by category if specified in req.body
 router.post('/leaderboard', (req, res, next) => {
 	User.find()
