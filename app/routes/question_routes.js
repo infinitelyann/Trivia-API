@@ -48,7 +48,7 @@ router.post('/questions/:gameId', requireToken, (req, res, next) => {
 // UPDATE
 /// PATCH updating a question
 /// /games/<game_id>/<question_id>
-router.patch('/questions/:gameId/:questionId', requireToken, (req, res, next) => {
+router.patch('/questions/:gameId/:questionId', (req, res, next) => {
     const { gameId, questionId } = req.params
  
     Game.findById(gameId)
@@ -69,13 +69,14 @@ router.patch('/questions/:gameId/:questionId', requireToken, (req, res, next) =>
 
 /// DELETE / DESTROY
 // /games/<game_id>/<question_id>
-router.delete('/questions/:gameId/:questionId', requireToken, (req, res, next) => {
+router.delete('/questions/:gameId/:questionId',  (req, res, next) => {
     const { gameId, questionId } = req.params
     Game.findById(gameId)
         .then(handle404)
         .then(game => {
             const theQuestion = game.questions.id(questionId)
-            requireOwnership(req, game)
+            console.log(theQuestion)
+            // requireOwnership(req, game)
             theQuestion.remove()
             return game.save()
         })
