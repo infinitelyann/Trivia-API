@@ -141,17 +141,13 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 
 // CHANGE stats
 // PATCH
+// adds quiz result object with category and score keyvaluepairs to playerStats array
 router.patch('/:userId', requireToken, (req, res, next) => {
     const { userId } = req.params
-	console.log("this is req.body: ", req.body)
-
     User.findById(userId)
         .then(user => {
 			
-			console.log("this is playerStats before: ", user.playerStats)
             user.playerStats.push(req.body)
-			console.log("this is playerStats after: ", user.playerStats)
-			console.log("this is user's total score: ", user.scoreTotal)
             return user.save()
         })
         .then(() => res.sendStatus(204))
@@ -160,15 +156,24 @@ router.patch('/:userId', requireToken, (req, res, next) => {
 
 // SHOW leaderboard
 // GET
+// returns ordered array of objects with username and score keyvaluepairs, by category if specified in req.body
 router.get('/leaderboard', (req, res, next) => {
-	console.log("leaderboard route running")
 	User.find()
 		.then(users => {
 			let leaderboard = []
-			users.forEach(user => {
-				let rankObj = {username: user.username, score: user.scoreTotal}
-				leaderboard.push(rankObj)
-			})
+			console.log("this is req body category: ", req.body.category)
+			if (!req.body.category) {
+				users.forEach(user => {
+					let rankObj = {username: user.username, score: user.scoreTotal}
+					leaderboard.push(rankObj)
+				})
+			}
+			else {
+				users.forEach(user => {
+					let rankObj = {username: user.username, score: user.categoryScore(req.body.category)}
+					leaderboard.push(rankObj)
+				})
+			}
 			leaderboard.sort((a, b) => {
 				return b.score - a.score
 			})

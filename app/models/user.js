@@ -68,10 +68,22 @@ userSchema.virtual('scoreTotal').get(function() {
 	}
 })
 
-// TODO -> Virtuals that use playerStats to return leaderboard relevant data
-//separating user/owner is not necessary- conditional is post request?
-//user should own/edit games w/ questions pulled from API-user form similar to API
-// TODO -> Virtuals that use playerStats to return leaderboard relevant data
+userSchema.methods.categoryScore = function categoryScore (category) {
+	console.log('this is the argument passed to categoryScore: ', category)
+	if (this.playerStats.length !== 0) {
+		return this.playerStats.reduce((total, field) => {
+			if (field['category'] === category) {
+				return total + field['score']
+			}
+			else {
+				return 0
+			}
+		}, 0)
+	}
+	else {
+		return 0
+	}
+}
 
 module.exports = mongoose.model('User', userSchema)
 
