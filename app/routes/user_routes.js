@@ -157,11 +157,10 @@ router.patch('/:userId', requireToken, (req, res, next) => {
 // SHOW leaderboard
 // GET
 // returns ordered array of objects with username and score keyvaluepairs, by category if specified in req.body
-router.get('/leaderboard', (req, res, next) => {
+router.post('/leaderboard', (req, res, next) => {
 	User.find()
 		.then(users => {
 			let leaderboard = []
-			console.log("this is req body category: ", req.body.category)
 			if (!req.body.category) {
 				users.forEach(user => {
 					let rankObj = {username: user.username, score: user.scoreTotal}
@@ -177,7 +176,6 @@ router.get('/leaderboard', (req, res, next) => {
 			leaderboard.sort((a, b) => {
 				return b.score - a.score
 			})
-			console.log('this is the leaderboard: ', leaderboard)
 			return leaderboard
 		})
 		.then(leaderboard => {
