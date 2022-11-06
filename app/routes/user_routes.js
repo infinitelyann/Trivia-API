@@ -143,7 +143,7 @@ router.patch('/change-password', requireToken, (req, res, next) => {
 // PATCH
 // adds quiz result object with category and score keyvaluepairs to playerStats array
 // and returns the user's new category score
-router.patch('/:userId', requireToken, (req, res, next) => {
+router.patch('/:userId', (req, res, next) => {
     const { userId } = req.params
     User.findById(userId)
         .then(user => {
