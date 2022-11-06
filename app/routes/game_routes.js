@@ -52,6 +52,7 @@ router.get('/games/:id',  (req, res, next)=> {
     Game.findById(req.params.id)
         .populate('owner')
         .then(game => {
+            
             res.status(200).json({game: game})
         })
         .then(handle404)
