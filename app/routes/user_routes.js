@@ -34,11 +34,7 @@ router.post('/sign-up', (req, res, next) => {
 	Promise.resolve(req.body.credentials)
 		// reject any requests where `credentials.password` is not present, or where
 		// the password is an empty string
-<<<<<<< Updated upstream
-
-=======
 		// console.log("here",credentials)
->>>>>>> Stashed changes
 		.then((credentials) => {
 			if (
 				!credentials ||

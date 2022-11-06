@@ -50,15 +50,14 @@ router.post('/questions/:gameId', requireToken, (req, res, next) => {
 /// /games/<game_id>/<question_id>
 router.patch('/questions/:gameId/:questionId', (req, res, next) => {
     const { gameId, questionId } = req.params
- 
+    
     Game.findById(gameId)
         .then(handle404)
         .then((game) => {
             // console.log(game.questions)
             const theQuestion = game.questions.id(questionId)
-            console.log("the game",game)
-            console.log("the user", req.user._id)
-            // requireOwnership(req, game)
+            
+           
             theQuestion.set(req.body.question)
             return game.save()
         })
