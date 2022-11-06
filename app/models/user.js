@@ -12,11 +12,15 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true
 		},
+<<<<<<< Updated upstream
         playerStats: [playerStatsSchema],
+=======
+>>>>>>> Stashed changes
         flaggedQuestions: {
-            type: Array,
+			type: Array,
             required: true
         },
+		playerStats: [playerStatsSchema],
 		token: String
 	},
 	{
