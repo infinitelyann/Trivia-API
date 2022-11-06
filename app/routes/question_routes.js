@@ -58,7 +58,7 @@ router.patch('/questions/:gameId/:questionId', (req, res, next) => {
             const theQuestion = game.questions.id(questionId)
             console.log("the game",game)
             console.log("the user", req.user._id)
-            requireOwnership(req, game)
+            // requireOwnership(req, game)
             theQuestion.set(req.body.question)
             return game.save()
         })

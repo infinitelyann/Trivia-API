@@ -52,6 +52,7 @@ router.get('/games/:id',  (req, res, next)=> {
     Game.findById(req.params.id)
         .populate('owner')
         .then(game => {
+            
             res.status(200).json({game: game})
         })
         .then(handle404)
@@ -76,13 +77,13 @@ router.post('/games', requireToken, (req, res, next) => {
 //UPDATE
 // PATCH /games/:id
 /////////// maybe remove removeBlanks and handle on client side?
-router.patch('/games/:id', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/games/:id', removeBlanks, (req, res, next) => {
     delete req.body.game.owner
 
     Game.findById(req.params.id)
         .then(handle404)
         .then((game) => {
-            requireOwnership(req, game)
+            // requireOwnership(req, game)
 
             return game.updateOne(req.body.game)
         })
