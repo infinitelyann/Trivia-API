@@ -79,7 +79,7 @@ router.post('/games', requireToken, (req, res, next) => {
 /////////// maybe remove removeBlanks and handle on client side?
 router.patch('/games/:id', removeBlanks, (req, res, next) => {
     delete req.body.game.owner
-
+ 
     Game.findById(req.params.id)
         .then(handle404)
         .then((game) => {
