@@ -68,7 +68,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(requestLogger)
 
 // register route files
-app.use(exampleRoutes)
+app.use(exampleRoutes) // remove example routes if we aren't using them 
 app.use(userRoutes)
 app.use(gameRoutes)
 app.use(questionRoutes)

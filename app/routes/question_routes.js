@@ -50,13 +50,13 @@ router.post('/questions/:gameId', requireToken, (req, res, next) => {
 /// /games/<game_id>/<question_id>
 router.patch('/questions/:gameId/:questionId', (req, res, next) => {
     const { gameId, questionId } = req.params
-    
+    // inconsistent white space here
     Game.findById(gameId)
         .then(handle404)
         .then((game) => {
             // console.log(game.questions)
             const theQuestion = game.questions.id(questionId)
-            
+            // inconsistent white space here
            
             theQuestion.set(req.body.question)
             return game.save()
@@ -79,7 +79,7 @@ router.delete('/questions/:gameId/:questionId',  (req, res, next) => {
             theQuestion.remove()
             return game.save()
         })
-        .then(game => res.sendStatus(204))
+        .then(game => res.sendStatus(204)) // unused variable
         .catch(next)
 })
 

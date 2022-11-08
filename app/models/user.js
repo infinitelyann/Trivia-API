@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema(
 )
 
 userSchema.virtual('username').get(function() {
-	return this.email.slice(0, this.email.indexOf('@'))
+	return this.email.slice(0, this.email.indexOf('@'))// nice!
 })
-
+// remove zombie comment ( love that you pasted in sample data )
 // example of playerStats
 // [
 // 	{
@@ -59,9 +59,9 @@ userSchema.virtual('username').get(function() {
 
 userSchema.virtual('scoreTotal').get(function() {
 	if (this.playerStats.length !== 0) {
-		return this.playerStats.reduce((total, field) => {
+		return this.playerStats.reduce((total, field) => { // very nice !
 			return total + field['score']
-		}, 0)
+		}, 0)// careful of our indentation here - we are using an implied '()' for the return, but you did so consistently which i like ! 
 	}
 	else {
 		return 0

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+// remove unused models 
 const exampleSchema = new mongoose.Schema(
 	{
 		title: {

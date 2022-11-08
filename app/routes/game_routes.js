@@ -34,12 +34,12 @@ const router = express.Router()
 // /games
 router.get('/games',  (req, res, next) => {
     Game.find()
-        
+        // inconsistent white space here
         .populate('owner')
-        .then((games) => {
+        .then((games) => { // why not use short hand with implicit return like below ? choose 1 and be consistent 
             return games.map((game) => game.toObject())
         })
-        .then((games) => res.status(200).json({games: games}))
+        .then((games) => res.status(200).json({games: games})) // why not use long hand with explicit return here like above ?
         .catch(next)
 })
 
@@ -52,7 +52,7 @@ router.get('/games/:id',  (req, res, next)=> {
     Game.findById(req.params.id)
         .populate('owner')
         .then(game => {
-            
+            // inconsistent white space here
             res.status(200).json({game: game})
         })
         .then(handle404)
@@ -66,7 +66,7 @@ router.post('/games', requireToken, (req, res, next) => {
     req.body.game.owner = req.user.id
     // setting game owner to current user
     // req.body.games.owner = req.user.id
-    console.log("the game",req.body)
+    console.log("the game",req.body) // comment out logs 
     Game.create(req.body.game)
         .then((game) => {
             res.status(201).json({ game: game})
@@ -79,7 +79,7 @@ router.post('/games', requireToken, (req, res, next) => {
 /////////// maybe remove removeBlanks and handle on client side?
 router.patch('/games/:id', removeBlanks, (req, res, next) => {
     delete req.body.game.owner
- 
+ // inconsistent white space here
     Game.findById(req.params.id)
         .then(handle404)
         .then((game) => {
@@ -97,7 +97,7 @@ router.delete('/games/:id', requireToken, (req, res, next) => {
     Game.findById(req.params.id)
         .then(handle404)
         .then((game) => {
-            
+            // inconsistent white space here
             requireOwnership(req, game)
             game.deleteOne()
         })

@@ -1,4 +1,4 @@
-const categories = [
+const categories = [ // love that you have this exported as it's own bit, but wish you had comments explaining what this is / why
     'General Knowledge',
     'Entertainment: Books',
     'Entertainment: Film',
