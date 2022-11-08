@@ -16,7 +16,7 @@ const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
 const User = require('../models/user')
-const user = require('../models/user')
+const user = require('../models/user') // < duplicate import bad, declaring our model Class variable as lower case is against BP
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -70,7 +70,7 @@ router.post('/sign-up', (req, res, next) => {
 router.post('/sign-in', (req, res, next) => {
 	const pw = req.body.credentials.password
 	let user
-
+// inconsistent white space here
 	// find a user based on the email that was passed
 	User.findOne({ email: req.body.credentials.email })
 		.then((record) => {

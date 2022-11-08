@@ -22,7 +22,7 @@ const questionSchema = new mongoose.Schema(
         category: {
             type: String,
             required: true,
-            enum: categories
+            enum: categories // YAS
         },
         type: {
             type: String,
@@ -42,7 +42,7 @@ const questionSchema = new mongoose.Schema(
 )
 
 module.exports =  questionSchema
-
+// love seeing these comments/ notes to self / thinking out loud 
 // leaderboard might be subdocument
 // virtuals could aggregate scores for leaderboard
 // timer will be virtual using new Date()

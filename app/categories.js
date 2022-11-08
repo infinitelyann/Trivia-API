@@ -1,4 +1,4 @@
-const categories = [
+const categories = [ // a duplicate file of the same name, fix your pathing instead
     'General Knowledge',
     'Entertainment: Books',
     'Entertainment: Film',
